@@ -1,0 +1,13 @@
+{
+  "name": "shipstar",
+  "description": "Shipstar's official Claude Code plugin: automated product marketing from your commits — changelogs, blog posts, release emails, and social posts over MCP.",
+  "owner": { "name": "Shipstar", "email": "support@shipstar.ai", "url": "https://shipstar.ai" },
+  "plugins": [
+    {
+      "name": "shipstar",
+      "source": "./",
+      "description": "Generate, review, publish, and email product-marketing content from your GitHub commits via Shipstar's hosted MCP server, with guided skills for release announcements, blog posts, and mailing-list sends.",
+      "version": "1.0.0"
+    }
+  ]
+}
