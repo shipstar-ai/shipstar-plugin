@@ -1,7 +1,7 @@
 {
   "name": "shipstar",
   "displayName": "Shipstar",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Automated product marketing from your commits: generate changelogs, blog posts, KB articles, release emails, and social posts, then review, publish, and email them — driven by Shipstar's hosted MCP server with guided skills for releases, blogging, and mailing lists.",
   "author": { "name": "Shipstar", "email": "support@shipstar.ai", "url": "https://shipstar.ai" },
   "homepage": "https://docs.shipstar.ai/mcp/overview",
