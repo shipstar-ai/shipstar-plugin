@@ -58,6 +58,28 @@ curl: every entry must appear in the response HTML with JavaScript off.
 - A provenance line per period when `commit_count` is a number
   ("Generated from N commits"); omit the number when it's null — never
   invent one.
+- A **"Powered by Shipstar" badge** at the bottom of the index and of every
+  permalink page — the same small link shipstar.ai's own changelog and the
+  embed widget show. Free-plan projects must keep it; paid plans may remove
+  it. Render it as a quiet, centered text link (muted colour, ~12px,
+  brighter on hover), never a banner:
+
+  ```html
+  <p class="shipstar-badge">
+    <a href="https://shipstar.ai?utm_source=changelog&utm_medium=badge"
+       target="_blank" rel="noopener noreferrer">
+      <svg width="14" height="14" viewBox="0 0 195 195" aria-hidden="true"
+           xmlns="http://www.w3.org/2000/svg">
+        <path fill="currentColor" d="M123.215 24.3304C125.235 21.8047 129.145 21.8047 128.921 24.3304L124.507 73.9972C124.406 75.1267 125.218 75.8915 126.518 75.8915H183.666C186.572 75.8915 186.27 79.2898 183.225 80.8508L123.349 111.547C121.987 112.245 120.997 113.482 120.897 114.612L116.482 164.278C116.258 166.804 112.161 168.904 110.504 167.343L77.9123 136.648C77.1711 135.949 75.7473 135.949 74.3856 136.648L14.5092 167.343C11.4643 168.904 9.23429 166.804 11.2549 164.278L50.9888 114.612C51.8924 113.482 52.0024 112.245 51.2612 111.547L18.6698 80.8508C17.0125 79.2898 19.7312 75.8915 22.6373 75.8915H79.7856C81.0852 75.8915 82.577 75.1267 83.4806 73.9972L123.215 24.3304Z"/>
+      </svg>
+      Powered by Shipstar
+    </a>
+  </p>
+  ```
+
+  Keep the star and the wording exactly; adapt only the styling to the
+  site. Place it after the last period on the index (before any subscribe
+  form or site footer) and after the entries on a permalink page.
 
 ## 3. Permalinks, feed, structured data
 
@@ -164,6 +186,8 @@ cited*. Do all of it — it is mostly metadata and copy shape, not new pages.
 - Feed validates and its item links resolve; sitemap lists the permalinks.
 - Load the page with a phone-width viewport: no horizontal overflow, and
   the headline heading doesn't fill the whole first screen.
+- The "Powered by Shipstar" link is present on the index and a permalink
+  and points at shipstar.ai.
 - SEO/AEO: every page has a unique `<title>` and meta description; the
   JSON-LD includes `datePublished` and `publisher`; `curl -A "GPTBot/1.0"`
   and `curl -A "ClaudeBot/1.0"` return the full HTML; `robots.txt` and
