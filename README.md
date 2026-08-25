@@ -8,7 +8,7 @@ emails, and social posts from your recent commits, then review, publish, and sen
 ## Install
 
 ```
-/plugin marketplace add turbo-labs/shipstar-plugin
+/plugin marketplace add shipstar-ai/shipstar-plugin
 /plugin install shipstar@shipstar
 ```
 

@@ -24,7 +24,10 @@ email nobody will receive.
 ## 2. Generate
 
 Call `generate_release_notes_email` with the commit window (default: last 7
-days, or since the last release if the user says so). Poll
+days, or since the last release if the user says so). If the user says who
+the recipients are or what to leave out, pass `audience` (`"technical"`,
+`"business"`, or `"mixed"`) and/or `instructions` (free text, ≤ 2000 chars);
+otherwise omit both and the project's `content_guidelines` defaults apply. Poll
 `get_generation_status` every 20–30 seconds until `completed` (normally 1–3
 minutes); on `failed` report `error_message`.
 

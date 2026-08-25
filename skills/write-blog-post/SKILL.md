@@ -30,6 +30,13 @@ Call `generate_blog_post` with:
   - `seo`: true for a target keyword + meta description
   - `focus`: `"single_feature"` for a deep-dive, `"multi_feature"` (default)
     for a roundup
+- `audience` / `instructions` (optional): only if the user says who the post
+  is for or what to leave out — `audience` is `"technical"`, `"business"`,
+  or `"mixed"`; `instructions` is free text (≤ 2000 chars, e.g. "don't
+  mention the marketing website work"). Omit both to use the project
+  defaults shown in `get_project_context` → `content_guidelines`. Note
+  `blog_options.focus` is about breadth (one feature vs. a roundup), not
+  about what to include — use `instructions` for that.
 - the same `start_date`/`end_date` you used for ideas
 
 Poll `get_generation_status` every 20–30 seconds until `completed` (normally
