@@ -7,7 +7,7 @@
       "name": "shipstar",
       "source": "./",
       "description": "Generate, review, publish, and email product-marketing content from your GitHub commits via Shipstar's hosted MCP server, with guided skills for release announcements, blog posts, and mailing-list sends.",
-      "version": "1.2.0"
+      "version": "1.3.0"
     }
   ]
 }

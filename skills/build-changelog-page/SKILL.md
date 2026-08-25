@@ -4,8 +4,10 @@ description: >
   Build a server-rendered, agent-readable changelog page on the user's own
   website from their Shipstar changelog data: semantic HTML crawlers and
   answer engines can actually read, per-period permalink pages, an RSS
-  feed, and structured data. Use when the user wants their changelog on
-  their own domain, asks to make their changelog crawlable / SEO-friendly /
+  feed, structured data, and the SEO / AEO layer (titles, descriptions,
+  Open Graph, crawler policy, llms.txt, answer-shaped copy) that makes it
+  rank and get cited. Use when the user wants their changelog on their
+  own domain, asks to make their changelog crawlable / SEO-friendly /
   readable by AI agents, or notes that the embed widget renders nothing
   for search engines. Requires a Shipstar API token; works in any
   server-rendering web stack (examples assume Next.js-style ISR).
@@ -94,7 +96,66 @@ Reserve the empty state for a genuinely empty (200, `[]`) response.
 - At 6+ periods, render the latest ~6 in full and collapse older ones to
   headline rows linking to their permalinks so the index stays bounded.
 
-## 6. Verify before finishing
+## 6. Optimise for search and answer engines
+
+Sections 2–3 make the changelog *readable*; this makes it *rank* and *get
+cited*. Do all of it — it is mostly metadata and copy shape, not new pages.
+
+### SEO
+
+- **Titles and descriptions**: index `<title>` = "Changelog — {Product}"
+  (or "What's new in {Product}"); permalink `<title>` = the period headline
+  truncated at ~60 chars, then " — {Product}". Every page gets a
+  `<meta name="description">` of 150–160 chars: for permalinks, the headline
+  plus the first entry's title; for the index, what the product is and how
+  often it ships. Never leave a page on the site's default template string.
+- **Open Graph / Twitter**: `og:title`, `og:description`, `og:url`,
+  `og:type` (`article` on permalinks, `website` on the index), `og:image`
+  (reuse the site's default social image unless they already generate
+  per-page cards), and `twitter:card: summary_large_image`.
+- **Structured data, complete**: on permalinks the `TechArticle` carries
+  `headline`, `datePublished` (`period_end`), `dateModified` (same unless
+  they edit), `author`/`publisher` as the company `Organization`, and
+  `mainEntityOfPage` = the canonical URL. Add a `BreadcrumbList`
+  (Home › Changelog › {headline}). On the index, give the `ItemList`
+  `position`s and cap it at the periods actually rendered in full.
+- **Internal links**: link the changelog from the site's main nav or
+  footer and from the docs; give each permalink prev/next period links;
+  where an entry names a feature that has a docs or product page, link the
+  entry title to it (the biggest ranking signal you control). Keep product
+  and feature names literal in headings — the generated copy is
+  marketing-toned, so `<h1>`/`<title>` should still contain the product
+  name.
+- **Index hygiene**: one canonical for the index (no `?page=` duplicates —
+  collapsed older periods link to permalinks, not paginated copies),
+  `lastmod` on every sitemap entry, and after each publish ping
+  IndexNow / resubmit the sitemap if the site already has a key.
+
+### AEO (ChatGPT, Perplexity, Claude, Google AI Overviews)
+
+- **Crawler policy first**: check `robots.txt` allows `GPTBot`, `ClaudeBot`,
+  `PerplexityBot`, `Google-Extended`, `Bingbot`, and `OAI-SearchBot` on the
+  changelog paths, and that WAF/bot-fight rules (Cloudflare, Vercel
+  Firewall) don't challenge them. Verify with
+  `curl -A "GPTBot/1.0" https://…/changelog` — the HTML must come back,
+  not a challenge page.
+- **`llms.txt`**: add (or create at the site root) an entry for the
+  changelog index, the permalink pattern, and the feed URL, with one line
+  saying what the product is.
+- **Answer-shaped copy**: open each permalink with the headline as a
+  complete sentence that names the product and the period ("In the week of
+  Aug 17–24, 2026, Compli API added …"), keep every entry title a full
+  statement rather than a fragment, and repeat the product name in each
+  period so a quoted snippet is attributable out of context. Put a
+  visible "Last updated {date}" line near the top.
+- **Where it helps, a small FAQ** per period ("Does this change existing
+  integrations?", "Do I need to upgrade?") with `FAQPage` JSON-LD — only
+  when the entries actually answer such questions; never pad.
+- **Markdown negotiation (optional, high signal)**: serve markdown for
+  `Accept: text/markdown` on the same URLs (what shipstar.ai does) so agents
+  that ask for it get the content without parsing HTML.
+
+## 7. Verify before finishing
 
 - `curl` the index and one permalink: full entry text present, `<time>`
   elements carry `dateTime`, JSON-LD parses as valid JSON.
@@ -103,3 +164,8 @@ Reserve the empty state for a genuinely empty (200, `[]`) response.
 - Feed validates and its item links resolve; sitemap lists the permalinks.
 - Load the page with a phone-width viewport: no horizontal overflow, and
   the headline heading doesn't fill the whole first screen.
+- SEO/AEO: every page has a unique `<title>` and meta description; the
+  JSON-LD includes `datePublished` and `publisher`; `curl -A "GPTBot/1.0"`
+  and `curl -A "ClaudeBot/1.0"` return the full HTML; `robots.txt` and
+  `llms.txt` mention the changelog; internal links to the changelog exist
+  from nav/footer.
