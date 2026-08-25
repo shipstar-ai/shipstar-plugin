@@ -31,6 +31,12 @@ invariants below are what make the page readable to machines.
   changelogs, newest first. Without a token the endpoint serves Shipstar's
   own changelog — if the user sees Shipstar's entries instead of theirs,
   the token isn't being sent.
+- On every server-side fetch, send `X-Shipstar-Page-Url` with the
+  canonical URL of the page being rendered (the index URL when fetching
+  the list, the permalink URL when fetching a period by slug). Shipstar
+  stores it, so the user's dashboard shows "Published · their-site/…"
+  automatically — server-rendered pages send no Referer, and without this
+  header the dashboard keeps saying "not on your site yet".
 - Inspect the real payload before writing rendering code. Each period:
   `{ period_start, period_end, headline, entries, slug, commit_count }`;
   each entry: `{ id, category, title, description, date }` with category
