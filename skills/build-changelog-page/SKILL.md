@@ -113,6 +113,12 @@ and a cached empty sitemap delists the permalinks. On a failed fetch:
 throw (so stale cached output keeps serving) or return an error status.
 Reserve the empty state for a genuinely empty (200, `[]`) response.
 
+One exception: a `404` from a single-slug endpoint
+(`GET /api/v1/changelog/{slug}`, or a knowledge-base set by slug) is the
+API's real answer — that item is unpublished, not the API down — so treat
+it as "nothing here" (a 404 page, or no entries), never as a failure. Only
+network errors and non-404 error statuses fail closed.
+
 ## 5. Optional enhancements
 
 - Keep the embed widget as progressive enhancement on top of the
