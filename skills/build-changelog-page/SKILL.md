@@ -25,7 +25,7 @@ invariants below are what make the page readable to machines.
 ## 1. Establish access
 
 - Ask for (or locate in their env) a Shipstar API token — created in the
-  dashboard under Keys. **It must stay server-side** (env var, never client
+  dashboard under API Tokens. **It must stay server-side** (env var, never client
   code): `GET https://api.shipstar.ai/api/v1/changelogs` with
   `Authorization: Bearer <token>` returns *their* project's published
   changelogs, newest first. Without a token the endpoint serves Shipstar's
