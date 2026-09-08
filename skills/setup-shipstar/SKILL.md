@@ -44,13 +44,13 @@ From the same `get_project_context` result, check and report:
 | Check | Ready when | If not |
 |---|---|---|
 | GitHub source | `github_connected` true, `github_suspended` false, `tracked_repositories` non-empty | Dashboard → Sources → Install GitHub App (or Link existing installation), pick repos. If `github_suspended` is true, an org admin must unsuspend the app on GitHub |
-| Destinations | the channels the user wants show `connected: true` | Dashboard → Destinations (Slack, Intercom, X are OAuth flows) |
+| Destinations | the channels the user wants show `connected: true` (Featurebase also needs `needs_reconnect: false` and, for scheduled sets, a `default_collection`) | Dashboard → Destinations (Slack, Intercom, X are OAuth flows; Featurebase takes an organization API key) |
 | Mailing lists | at least one list with `active_recipients > 0`, if they want release emails | Dashboard → Destinations → Email |
 | Content guidelines | `content_guidelines.audience` (technical depth) / `.instructions` reflect how technical the content should read and anything to leave out (optional — both `null` means built-in defaults) | Dashboard → Settings → Content guidelines; or pass `audience` / `instructions` per generation call |
 
-You cannot connect sources or destinations over MCP — the GitHub App install
-and the destination OAuth flows happen in the dashboard (and on GitHub). Be
-direct about which items need a dashboard visit.
+You cannot connect sources or destinations over MCP — the GitHub App install,
+the destination OAuth flows, and the Featurebase API key all happen in the
+dashboard (and on GitHub). Be direct about which items need a dashboard visit.
 
 ## 4. Smoke test (optional but recommended)
 
