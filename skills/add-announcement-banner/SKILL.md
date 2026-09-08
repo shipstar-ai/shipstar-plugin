@@ -14,8 +14,9 @@ description: >
 
 # Add an announcement banner
 
-Shipstar generates a `banner` content type: `{ badge ≤ 16 chars ("New" by
-default, "" for none), headline ≤ 80 chars, body ≤ 160 chars (one sentence),
+Shipstar generates a `banner` content type: `{ badge ≤ 16 chars (the
+project default — "New" unless changed under Destinations → Website — or ""
+for none), headline ≤ 80 chars, body ≤ 160 chars (one sentence),
 cta_label ≤ 24 chars, link_url }` for the single
 most impactful user-facing change in a commit window. **Exactly one banner is
 live per project.** Publishing a new one replaces the current one and keeps
@@ -35,9 +36,12 @@ end to end.
   changelog permalink; the user can name any URL (a launch page, docs,
   pricing). Ask whether it should come down on its own (7 / 14 / 30 days)
   or stay until the next banner replaces it (the default).
-- The bar shows a small "New" badge before the headline. Keep it unless
-  the user wants different wording (`badge`, e.g. "Beta") or none
-  (`show_badge: false`) — don't ask unless they bring it up.
+- The bar shows a small badge before the headline ("New" unless the
+  project's default under Destinations → Website says otherwise). Keep it
+  unless the user wants different wording for this banner (`badge`, e.g.
+  "Beta") or none (`show_badge: false`) — don't ask unless they bring it
+  up. A wording they want every time belongs in that project default, not
+  on each run.
 
 ## 2. Generate and review the first banner
 
@@ -50,7 +54,9 @@ end to end.
   as a sentence. Offer edits; apply them with `update_content` (the draft
   is JSON: keep `link_url` in it, and never invent a link the user didn't
   give — an empty `link_url` is filled in at publish from their website
-  settings; set `badge` to `""` to drop the tag).
+  settings; set `badge` to `""` to drop the tag). Drafts are validated and
+  clamped on save, and a badge edited here is what a later regenerate
+  starts from.
 - Only after the user confirms, `publish_content`. Read back `get_banner`
   and quote the `slug` — it is the embed key.
 
