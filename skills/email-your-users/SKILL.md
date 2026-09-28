@@ -17,9 +17,23 @@ release email can only ever be sent once.
 ## 1. Check the audience first
 
 Call `list_mailing_lists`. If there are no lists, or every list has zero
-`active_recipients`, stop — recipients are managed in the Shipstar dashboard
-(Destinations → Email; addresses are bulk-pasted there). Don't generate an
-email nobody will receive.
+`active_recipients`, don't generate an email nobody will receive. Instead
+offer to build the audience:
+
+- No list yet → `create_mailing_list(name)`.
+- The user has addresses to hand (pasted, from a CSV, from their CRM) →
+  `upsert_mailing_list_recipients(mailing_list_id, recipients)` with
+  `{email, name?, external_id?}` objects, ≤ 500 per call. Include their own
+  user id as `external_id` when they have one so later syncs update rather
+  than duplicate. Show the returned counts (`added`, `updated`,
+  `skipped_unsubscribed` …) back to the user.
+- For an ongoing sync from their own system, point them at the docs guide
+  "Sync your users into a mailing list" (`PUT /api/v1/email/lists/{id}/recipients`)
+  or the dashboard's CSV import (Destinations → Email → the list).
+
+Removing people is `remove_mailing_list_recipients` (soft; confirm the exact
+people first). Contacts who unsubscribed themselves can never be re-added by
+any tool — they are only ever reported as skipped.
 
 ## 2. Generate
 
