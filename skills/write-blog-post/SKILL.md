@@ -33,7 +33,7 @@ Call `generate_blog_post` with:
 - `audience` / `instructions` (optional): only if the user says who the post
   is for or what to leave out — `audience` is `"technical"`, `"business"`,
   or `"mixed"`; `instructions` is free text (≤ 2000 chars, e.g. "don't
-  mention the marketing website work"). Omit both to use the project
+  lead with the new API"). Omit both to use the project
   defaults shown in `get_project_context` → `content_guidelines`. Note
   `blog_options.focus` is about breadth (one feature vs. a roundup), not
   about what to include — use `instructions` for that.
