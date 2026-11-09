@@ -32,6 +32,7 @@ claude mcp add --transport http shipstar https://mcp.shipstar.ai/mcp --header "A
 | `/shipstar:setup-shipstar` | Connect the MCP server, verify the project, and audit sources, destinations, and mailing lists. |
 | `/shipstar:write-blog-post` | Brainstorm angles from commits, generate a draft, revise together, and publish. |
 | `/shipstar:email-your-users` | Send release notes to your mailing lists, with confirmation gates and unsubscribe handling. |
+| `/shipstar:sync-your-users` | Mirror your product's users into a Shipstar mailing list from your own codebase — nightly reconcile keyed by your user id, hooks, the attested resubscribe call, and a signed webhook handler for unsubscribes and resubscribes. |
 | `/shipstar:build-changelog-page` | Implement a server-rendered, agent-readable changelog on your own site — semantic HTML, permalinks, RSS, and structured data from your changelog API. |
 | `/shipstar:add-announcement-banner` | Put a one-line announcement banner (a "New" badge, headline, one sentence, call-to-action) at the top of your site from recent commits, embed it with one script tag, and keep it fresh on a schedule. |
 

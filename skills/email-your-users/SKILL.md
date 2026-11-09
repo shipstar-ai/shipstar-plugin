@@ -27,13 +27,16 @@ offer to build the audience:
   user id as `external_id` when they have one so later syncs update rather
   than duplicate. Show the returned counts (`added`, `updated`,
   `skipped_unsubscribed` …) back to the user.
-- For an ongoing sync from their own system, point them at the docs guide
-  "Sync your users into a mailing list" (`PUT /api/v1/email/lists/{id}/recipients`)
-  or the dashboard's CSV import (Destinations → Email → the list).
+- For an ongoing sync from their own system, use the `sync-your-users`
+  skill (it implements the reconcile, hooks, resubscribe and webhook
+  handling in their codebase), or the dashboard's CSV import
+  (Destinations → Email → the list) for a one-off load.
 
 Removing people is `remove_mailing_list_recipients` (soft; confirm the exact
-people first). Contacts who unsubscribed themselves can never be re-added by
-any tool — they are only ever reported as skipped.
+people first). Contacts who unsubscribed themselves are only ever reported
+as skipped — no tool re-adds them; only their own opt-in does (the
+Resubscribe button on the unsubscribe page, or the product's attested
+`POST .../recipients/resubscribe` call, which `sync-your-users` wires up).
 
 ## 2. Generate
 
