@@ -73,6 +73,18 @@ Apply the user's edits with `update_content`. It replaces the whole draft:
 send the complete revised text, and for JSON types keep the exact same JSON
 shape. Re-show after editing. Iterate until the user says it's good.
 
+### Optional: a social post from the changelog
+
+If the user also wants an X thread or a LinkedIn post, generate it **after**
+they are happy with the changelog draft, and pass the changelog's
+`content_id` as `changelog_id` to `generate_twitter_thread` /
+`generate_linkedin_post`. The post is then written from the changelog's
+entries rather than the commit log, so it announces something the user has
+already read and cannot contradict it. Do not pass `start_date`, `end_date`
+or `repos` with `changelog_id` — they are ignored. Poll and review it like
+the other drafts (step 3 and this step). Each post costs credits like any
+other generation, so only draft the ones the user asked for.
+
 ## 5. Deliver — only on explicit confirmation
 
 These are the irreversible steps. Get a clear "yes" for each:
